@@ -71,6 +71,8 @@ else()
     option(OPTION_BUILD_APPS_CMP_CAS      "Build Application: cmp_cas"     OFF)
 endif()
 
+set(LIB_BUILD_CORE ON)
+
 # Minimum Lib Dependencies for CLI and GUI (GUI has addtion lib requirements condition later in this cmake)
 if (OPTION_BUILD_APPS_CMP_CLI OR OPTION_BUILD_APPS_CMP_GUI)
     set(LIB_BUILD_COMPRESSONATOR_SDK ON)
@@ -78,7 +80,6 @@ if (OPTION_BUILD_APPS_CMP_CLI OR OPTION_BUILD_APPS_CMP_GUI)
     set(LIB_BUILD_IMAGEIO ON)
     set(LIB_BUILD_ANALYSIS ON)
     set(LIB_BUILD_COMMON ON)
-    set(LIB_BUILD_CORE ON)
     set(LIB_BUILD_GPUDECODE ON)
 endif()
 
@@ -220,12 +221,15 @@ if (CMP_HOST_WINDOWS)
     add_compile_definitions(WIN32_LEAN_AND_MEAN=1 _WIN32)
 
     set(CMAKE_EXE_LINKER_FLAGS "/INCREMENTAL:NO")
-    # Configure Externals, they must be added via 'include' before the applications
-    include(${CMAKE_ROOT}/modules/externalproject.cmake)
-    set_property(GLOBAL PROPERTY USE_FOLDERS ON)
-    include(external/cmake/dependencyinfo.cmake)
-    include(external/cmake/CMakeLists.txt)
-    include(external/CMakeLists.txt)
+
+    if (OPTION_BUILD_APPS_CMP_CLI OR OPTION_BUILD_APPS_CMP_GUI)
+        # Configure Externals, they must be added via 'include' before the applications
+        include(${CMAKE_ROOT}/modules/externalproject.cmake)
+        set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+        include(external/cmake/dependencyinfo.cmake)
+        include(external/cmake/CMakeLists.txt)
+        include(external/CMakeLists.txt)
+    endif()
 else()
     if (CMP_HOST_LINUX)
         #gltf code needs _LINUX define

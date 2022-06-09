@@ -54,4 +54,6 @@ if (UNIX)
 target_compile_definitions(CMP_Core PRIVATE _LINUX ASPM_GPU)
 endif()
 
+install(TARGETS CMP_Core)
+
 set_target_properties(CMP_Core PROPERTIES FOLDER "Libs")
