@@ -122,7 +122,7 @@ int CMP_CDECL SetSignedBC6(void* options, bool sf16);
 // for BC6H the format is RGBA Half float (16 bits per channel)
 //------------------------------------------------------------------------------------------------------
 #ifdef __cplusplus
-#define CMP_DEFAULTNULL = NULL
+#define CMP_DEFAULTNULL = 0
 #else
 #define CMP_DEFAULTNULL
 #endif
@@ -148,7 +148,7 @@ int CMP_CDECL CompressBlockBC4(const unsigned char* srcBlock, unsigned int srcSt
 int CMP_CDECL DecompressBlockBC4(const unsigned char cmpBlock[8], unsigned char srcBlock[16], const void* options CMP_DEFAULTNULL);
 
 // BC4 Signed channel
-int CMP_CDECL CompressBlockBC4S(const char* srcBlock, unsigned int srcStrideInBytes, unsigned char cmpBlock[8], const void* options = NULL);
+int CMP_CDECL CompressBlockBC4S(const char* srcBlock, unsigned int srcStrideInBytes, unsigned char cmpBlock[8], const void* options CMP_DEFAULTNULL);
 int CMP_CDECL DecompressBlockBC4S(const unsigned char cmpBlock[8], char srcBlock[16], const void* options CMP_DEFAULTNULL);
 
 //================================================
